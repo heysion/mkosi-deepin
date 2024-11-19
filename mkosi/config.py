@@ -333,6 +333,7 @@ class Architecture(StrEnum):
     riscv32 = enum.auto()
     riscv64 = enum.auto()
     s390 = enum.auto()
+    sw_64 = enum.auto()
     s390x = enum.auto()
     tilegx = enum.auto()
     x86 = enum.auto()
@@ -383,6 +384,7 @@ class Architecture(StrEnum):
             "riscv":       Architecture.riscv64,
             "s390x":       Architecture.s390x,
             "s390":        Architecture.s390,
+            "sw_64":       Architecture.sw_64,
             "tilegx":      Architecture.tilegx,
         }.get(s)  # fmt: skip
 
@@ -438,6 +440,7 @@ class Architecture(StrEnum):
             Architecture.riscv32:     "riscv",
             Architecture.riscv64:     "riscv64",
             Architecture.s390x:       "s390x",
+            Architecture.sw_64:       "sw_64",
             Architecture.x86:         "386",
             Architecture.x86_64:      "amd64",
         }.get(self)  # fmt: skip

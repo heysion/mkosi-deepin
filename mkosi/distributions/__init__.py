@@ -77,6 +77,7 @@ class Distribution(StrEnum):
     # of the mkosi maintainers before implementing a new distribution.
     fedora = enum.auto()
     debian = enum.auto()
+    deepin = enum.auto()
     kali = enum.auto()
     ubuntu = enum.auto()
     arch = enum.auto()
