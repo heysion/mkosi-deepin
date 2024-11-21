@@ -51,7 +51,7 @@ class Installer(DistributionInstaller):
             )
             return
 
-        mirror = context.config.mirror or "https://mirrors.tuna.tsinghua.edu.cn/deepin"
+        mirror = context.config.mirror or "https://community-packages.deepin.com/deepin"
         signedby = Path("/usr/share/keyrings/deepin-archive-camel-keyring.gpg")
 
         yield AptRepository(
@@ -62,36 +62,8 @@ class Installer(DistributionInstaller):
             signedby=signedby,
         )
 
-        # Debug repos are typically not mirrored.
-        # url = "http://deb.debian.org/debian-debug"
-
-        # yield AptRepository(
-        #     types=types,
-        #     url=url,
-        #     suite=f"{context.config.release}-debug",
-        #     components=components,
-        #     signedby=signedby,
-        # )
-
         if context.config.release in ("unstable", "sid"):
             return
-
-        # yield AptRepository(
-        #     types=types,
-        #     url=mirror,
-        #     suite=f"{context.config.release}-updates",
-        #     components=components,
-        #     signedby=signedby,
-        # )
-
-        # yield AptRepository(
-        #     types=types,
-        #     # Security updates repos are never mirrored.
-        #     url="http://security.debian.org/debian-security",
-        #     suite=f"{context.config.release}-security",
-        #     components=components,
-        #     signedby=signedby,
-        # )
 
     @classmethod
     def setup(cls, context: Context) -> None:
@@ -111,9 +83,6 @@ class Installer(DistributionInstaller):
         subdirs = ["bin", "sbin", "lib"] + {
             "amd64"       : ["lib32", "lib64", "libx32"],
             "i386"        : ["lib64", "libx32"],
-            "mips"        : ["lib32", "lib64"],
-            "mipsel"      : ["lib32", "lib64"],
-            "mips64el"    : ["lib32", "lib64", "libo32"],
             "loongarch64" : ["lib32", "lib64"],
         }.get(context.config.distribution.architecture(context.config.architecture), [])  # fmt: skip
 
@@ -218,10 +187,7 @@ class Installer(DistributionInstaller):
             Architecture.arm64:       "arm64",
             Architecture.x86_64:      "amd64",
             Architecture.loongarch64: "loongarch64",
-            Architecture.mips64_le:   "mips64el",
-            Architecture.mips_le:     "mipsel",
             Architecture.riscv64:     "riscv64",
-            Architecture.sw_64:       "sw_64",
         }.get(arch)  # fmt: skip
 
         if not a:
